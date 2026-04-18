@@ -37,14 +37,12 @@ def get_subscribe_keyboard():
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
-
     if not await is_subscribed(user_id, context):
         await update.message.reply_text(
             "⚠️ يجب متابعة قناتنا الرسمية أولاً للوصول إلى المنصة 👇",
             reply_markup=get_subscribe_keyboard()
         )
         return
-
     await update.message.reply_text(
         "☆ مرحبًا بك في Bac Feljib 🎓\n\nاختر ما تريد:",
         reply_markup=get_main_keyboard()
@@ -54,11 +52,9 @@ async def check_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE)
     query = update.callback_query
     await query.answer()
     user_id = query.from_user.id
-
     if not await is_subscribed(user_id, context):
         await query.answer("❌ لم نتحقق من متابعتك، تأكد ثم حاول مجدداً", show_alert=True)
         return
-
     await query.message.edit_text(
         "☆ مرحبًا بك في Bac Feljib 🎓\n\nاختر ما تريد:",
         reply_markup=get_main_keyboard()
